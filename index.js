@@ -58,11 +58,14 @@ io.on('connection', function (socket) {
     if(msg.ep<1 || msg.ep>15) msg.ep = 1;
     if(msg.hp<1 || msg.hp>15) msg.hp = 15;
     if(msg.hp<msg.ep) {msg.ep = 1; msg.hp = 15};
+    if(msg.gameType!=="timer" && msg.gameType !== "ranked" && msg.gameType !== "singlePoint"){
+      msg.gameType = "singlePoint";
+    }
     if(msg.name.trim()==""){
       msg.name = curName+"'s Game";
     }
     console.log(msg);
-    gameList[gameNumber + ""] = { name: msg.name, timeLimit: msg.timeLimit, problems: msg.problems, ep:parseInt(msg.ep),hp:parseInt(msg.hp),answeringPhase: false, currentProblem: 0 };
+    gameList[gameNumber + ""] = { name: msg.name, timeLimit: msg.timeLimit, problems: msg.problems, ep:parseInt(msg.ep),hp:parseInt(msg.hp), gameType: msg.gameType, answeringPhase: false, currentProblem: 0 };
     console.log(gameList);
     io.emit('addGames', gameList);
     socket.emit('joinedGame', 0);
