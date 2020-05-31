@@ -279,6 +279,21 @@ function startProblem(roomName) {
 
       console.log(currentYear + " Problem: " + currentProblem);
       console.log(gameList[roomName + ""]["answer"]);
+
+
+      var mailOptions = {
+        from: 'aimecdrerrorreports@gmail.com',
+        to: 'aimecdrerrorreports@gmail.com',
+        subject: currentYear + " Problem: " + currentProblem,
+        text: problemStatement
+      };
+      transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+          console.log(error);
+        } else {
+          console.log('Email sent: ' + info.response);
+        }
+      });
     });
     var url = "https://raw.githubusercontent.com/RadiantCheddar/mathbowl/master/client/math-problems-master/AIME/" + currentYear + "/" + currentProblem + "/images/0.png";
     if (UrlExists(url)) {
@@ -321,10 +336,27 @@ function startProblem(roomName) {
       problemStatement = problemStatement.split("\\item").join(" ");
       problemStatement = problemStatement.split("<").join(" < ");
       problemStatement = problemStatement.split(">").join(" > ");
+      
       io.to(roomName).emit('showProblem', problemStatement);
       io.to(roomName).emit('currentProblemInfo',{currentYear:currentYear,currentYearNumber:currentYearNumber,currentProblem,currentProblem});
       console.log(currentYear + " " + currentYearNumber + " Problem: " + currentProblem);
       console.log(gameList[roomName + ""]["answer"]);
+
+
+      var mailOptions = {
+        from: 'aimecdrerrorreports@gmail.com',
+        to: 'aimecdrerrorreports@gmail.com',
+        subject: currentYear + " " + currentYearNumber + " Problem: " + currentProblem,
+        text: problemStatement
+      };
+      transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+          console.log(error);
+        } else {
+          console.log('Email sent: ' + info.response);
+        }
+      });
+
     });
 
     var url = "https://raw.githubusercontent.com/RadiantCheddar/mathbowl/master/client/math-problems-master/AIME/" + currentYear + "/" + currentYearNumber + "/" + currentProblem + "/images/0.png";
