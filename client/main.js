@@ -12,7 +12,7 @@ function setCookie(cname,cvalue,exdays) {
 }
 
 function randomName() {
-  let names = ["porcupine","hedgehog","pineapple","chicken","horse","cabbage","watermelon","dog","fish","elephant","rose","popcorn"];
+  let names = ["porcupine","hedgehog","pineapple","chicken","horse","cabbage","watermelon","biswadev","dog","fish","elephant","rose","popcorn", "kitten", "CNCM Bot "];
   let name = names[Math.floor(Math.random() * 12)];
   let number = Math.ceil(Math.random() * 100);
   return (name.concat(number.toString()));
@@ -142,9 +142,21 @@ socket.on('message', function(text) {
   if (!text) {
     return;
   }
+  var d = new Date();
+  if (d.getHours() < 10){
+    var timeHrs = "[0"+d.getHours();
+  } else{
+    var timeHrs = "["+d.getHours(); 
+  }
+  if (d.getMinutes() < 10){
+    var timeMins = ":0"+d.getMinutes()+"]";
+  } else{
+    var timeMins = ":"+d.getMinutes()+"]"; 
+  }
+  var finMsg = timeHrs + timeMins + text;
   var container = document.getElementById('chatBox');
   var newMessage = document.createElement('p');
-  newMessage.innerText = text;
+  newMessage.innerText = finMsg;
   container.appendChild(newMessage);
 
   var seperator = document.createElement('br');
